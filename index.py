@@ -11,14 +11,16 @@ def index():
     st.header("Bootcamp de Data Science e Inteligencia Artificial")
     st.subheader("Autor: Manuel Tornos")
     iris = sns.load_dataset('iris')
+    st.subheader("DataFrame Original")
     st.dataframe(iris)
     gestiona_filtros(iris)
 
 def gestiona_filtros(df):
     especies_unicas = df["species"].unique()
-    st.text(especies_unicas)
-    especies_seleccionadas = st.multiselect(label="Especie de Flor",
-                                            options=especies_unicas,)
+    st.subheader("Filtros")
+    especies_seleccionadas = st.multiselect(label="TIPO DE ESPECIE",
+                                            options=especies_unicas,
+                                            default=especies_unicas)
     df2 = df[
         df["species"].isin(especies_seleccionadas)
     ]
@@ -43,7 +45,7 @@ def gestiona_filtros(df):
             df2 = df2[
                 (df2[tcons] >= valmin) &
                 (df2[tcons] <= valmax)]
-            
+    st.subheader("DATAFRAME FILTRADO")
     st.dataframe(df2)
 
 if __name__ == "__main__": 
